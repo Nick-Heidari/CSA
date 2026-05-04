@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PantryPal</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- Sidebar Nav -->
+  <nav class="sidebar">
+    <div class="logo">
+      <span class="logo-icon">🥫</span>
+      <span class="logo-text">PantryPal</span>
+    </div>
+    <ul class="nav-links">
+      <li><button class="nav-btn active" onclick="showSection('dashboard')">
+        <span class="nav-icon">🏠</span> Dashboard
+      </button></li>
+      <li><button class="nav-btn" onclick="showSection('add-item')">
+        <span class="nav-icon">➕</span> Add Item
+      </button></li>
+      <li><button class="nav-btn" onclick="showSection('recipes')">
+        <span class="nav-icon">🍽️</span> Recipes
+      </button></li>
+      <li><button class="nav-btn" onclick="showSection('impact')">
+        <span class="nav-icon">🌱</span> Impact
+      </button></li>
+    </ul>
+    <div class="sidebar-footer">Keep food, reduce waste.</div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="content">
+
+    <!-- SECTION: Dashboard -->
+    <div id="dashboard" class="section active">
+      <header class="page-header">
+        <h1>Your Pantry</h1>
+        <p class="subtitle">Everything you have, at a glance.</p>
+      </header>
+
+      <div id="alert-banner" class="alert-banner hidden"></div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Pantry Items</h2>
+          <span id="item-count" class="badge">0 items</span>
+        </div>
+        <ul id="pantry-list" class="pantry-list">
+          <li class="empty-state">Loading your pantry...</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECTION: Add Item -->
+    <div id="add-item" class="section hidden">
+      <header class="page-header">
+        <h1>Add an Item</h1>
+        <p class="subtitle">Track something new in your pantry.</p>
+      </header>
+
+      <div class="card form-card">
+        <div class="form-group">
+          <label for="item-name">Item Name</label>
+          <input type="text" id="item-name" placeholder="e.g. Almond Milk" />
+        </div>
+        <div class="form-group">
+          <label for="item-date">Expiry Date</label>
+          <input type="date" id="item-date" />
+        </div>
+        <button class="btn-primary" onclick="addItem()">Add to Pantry</button>
+        <p id="add-feedback" class="feedback hidden"></p>
+      </div>
+    </div>
+
+    <!-- SECTION: Recipes -->
+    <div id="recipes" class="section hidden">
+      <header class="page-header">
+        <h1>Recipe Ideas</h1>
+        <p class="subtitle">Based on what's in your pantry — click any card to see the full recipe.</p>
+      </header>
+
+      <div id="use-it-up-banner" class="use-it-up-banner hidden">
+        <div class="use-it-up-header">
+          <span class="use-it-up-icon">🔥</span>
+          <div>
+            <div class="use-it-up-title">Use these up soon!</div>
+            <div class="use-it-up-subtitle">Click an ingredient to find recipes before it expires.</div>
+          </div>
+        </div>
+        <div id="use-it-up-list" class="use-it-up-list"></div>
+      </div>
+
+      <div class="card recipes-card">
+        <div class="pantry-ingredient-row">
+          <div class="pantry-row-label">Your ingredients:</div>
+          <div id="pantry-tags" class="pantry-tags"></div>
+        </div>
+
+        <div class="recipe-search-row">
+          <input type="text" id="recipe-search-input" placeholder="Or search any ingredient..." />
+          <button class="btn-primary" onclick="searchRecipes()">Search</button>
+        </div>
+
+        <ul id="recipe-results" class="recipe-results"></ul>
+      </div>
+    </div>
+
+    <!-- SECTION: Impact -->
+    <div id="impact" class="section hidden">
+      <header class="page-header">
+        <h1>Your Impact</h1>
+        <p class="subtitle">Every deleted item is food you actually used.</p>
+      </header>
+
+      <div class="impact-grid">
+        <div class="impact-card">
+          <div class="impact-icon">🗑️</div>
+          <div class="impact-value" id="items-used">0</div>
+          <div class="impact-label">Items Used</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">⚖️</div>
+          <div class="impact-value" id="food-saved">0 lbs</div>
+          <div class="impact-label">Food Saved</div>
+        </div>
+        <div class="impact-card">
+          <div class="impact-icon">🌍</div>
+          <div class="impact-value" id="co2-avoided">0 lbs</div>
+          <div class="impact-label">CO₂ Avoided</div>
+        </div>
+      </div>
+
+      <div class="impact-note card">
+        <p>These numbers grow every time you delete a used item from your dashboard. Nice work reducing food waste! 🎉</p>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Recipe Modal -->
+  <div id="recipe-modal" class="modal-overlay hidden">
+    <div class="modal-container">
+      <button class="modal-close" onclick="closeRecipeModal()">✕</button>
+      <div id="modal-body" class="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
